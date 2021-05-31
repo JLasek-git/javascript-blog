@@ -51,15 +51,17 @@ function generateTitleLinks(){
 console.log("Działa");
   /*[DONE] remove contents of titleList */
   const titleList = document.querySelector('.titles');
-  titleList.innerHTML = '';
-  /*[DONE] for each article */
+  // titleList.innerHTML = '';
+  // /*[DONE] for each article */
   const articles = document.querySelectorAll('.post');
   for(let article of articles){
 
-    /*[IN PROGRESS] get the article id */
-    /* find the title element */
+    /*[DONE] get the article id */
+    const articleId = article.getAttribute('id');
 
-    /* get the title from the title element */
+    /*[DONE] find the title element */
+    /*[DONE] get the title from the title element */
+    const articleTitle = article.querySelector('.post-title').innerHTML;
 
     /* create HTML of the link */
 

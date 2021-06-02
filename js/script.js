@@ -1,5 +1,9 @@
 'use strict';
 
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles';
+
 function titleClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
@@ -36,11 +40,6 @@ function titleClickHandler(event){
 
   chosenArticle.classList.add('active');
 }
-
-
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles';
 
 function generateTitleLinks(){
   console.log('Działa');

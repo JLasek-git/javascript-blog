@@ -74,17 +74,16 @@ function generateTitleLinks(){
 generateTitleLinks();
 
 function generateTags(){
-  /* find all articles */
+  /*[DONE] find all articles */
   const articles = document.querySelectorAll('article.post');
   /* START LOOP: for every article: */
   for(let article of articles){
     /* find tags wrapper */
     const tagWrapper = document.querySelector('.post-tags');
     /* make html variable with empty string */
-    const emptyHtml = "";
+
     /* get tags from data-tags attribute */
-    const articleTags = article.getAttribute('data-tags');
-    console.log(articleTags);
+
     /* split tags into array */
 
     /* START LOOP: for each tag */
@@ -99,6 +98,4 @@ function generateTags(){
 
     /* END LOOP: for every article: */
   }
-}
-
 generateTags();

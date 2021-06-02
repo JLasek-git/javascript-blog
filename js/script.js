@@ -83,7 +83,7 @@ function generateTags(){
     /* make html variable with empty string */
     const emptyHtml = "";
     /* get tags from data-tags attribute */
-
+    const articleTags = article.getAttribute('data-tags');
     /* split tags into array */
 
     /* START LOOP: for each tag */

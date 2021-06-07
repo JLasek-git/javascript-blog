@@ -5,7 +5,9 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post .post-author',
-  optTagListSelector = '.tags.list';
+  optTagListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 
 
@@ -78,19 +80,29 @@ function generateTitleLinks(customSelector = ''){
 generateTitleLinks();
 
 function calculateTagsParams(tags) {
+
+  /* NEW object that contains max and min tag apperance*/
   const params = {
     max: 0,
     min: 999999
-  }
+  };
 
+  /* Choosing max and min tag apperances */
   for(let tag in tags){
     console.log(tag + ' is used ' + tags[tag] + ' times');
     params.max = Math.max(tags[tag], params.max);
     params.min = Math.min(tags[tag], params.min);
   }
 
-  console.log(params);
   return params;
+}
+
+function calculateTagClass(count, params){
+  const normalizedCount =  count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+  return classNumber;
 }
 
 function generateTags(){
@@ -150,7 +162,7 @@ function generateTags(){
   /* START LOOP: for each tag in all tags */
   for(let tag in allTags){
   /* generate code of a link and add it to allTagsHTML */
-    allTagsHTML+='<li><a href="#tag-' + tag + '">'+ tag + '(' + allTags[tag] + ')</a></li> ';
+    allTagsHTML+='<li><a href="#tag-' + tag + '" class ="'+ optCloudClassPrefix + calculateTagClass(allTags[tag], tagsParams) +'">'+ tag + '</a></li> ';
   /* END LOOP: for each tag in allTags */
   }
   /* add html from allTagsHTML to tagList */
@@ -194,11 +206,16 @@ function tagClickHandler(event){
 function addClickListenersToTags(){
   /* find all links to tags */
   const tagLinks = document.querySelectorAll('.post-tags a');
+  const tagList = document.querySelectorAll('.tags.list a');
   /* START LOOP: for each link */
   for(let tagLink of tagLinks){
   /* add tagClickHandler as event listener for that link */
     tagLink.addEventListener('click', tagClickHandler);
   /* END LOOP: for each link */
+  }
+
+  for(let tagLink of tagList){
+    tagLink.addEventListener('click', tagClickHandler );
   }
 }
 

@@ -1,5 +1,14 @@
 'use strict';
 
+const templates = {
+  // eslint-disable-next-line no-undef
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  // eslint-disable-next-line no-undef
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  // eslint-disable-next-line no-undef
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+};
+
 const opts = {
   tagSizes: {
     count: 5,
@@ -32,7 +41,6 @@ const select = {
 function titleClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
-  console.log('Link was clicked!');
 
   /*[DONE] remove class 'active' from all article links  */
 
@@ -55,7 +63,6 @@ function titleClickHandler(event){
   /*[DONE] get 'href' attribute from the clicked link */
 
   const articleId = clickedElement.getAttribute('href');
-  console.log(articleId);
 
   /*[DONE] find the correct article using the selector (value of 'href' attribute) */
 
@@ -67,7 +74,6 @@ function titleClickHandler(event){
 }
 
 function generateTitleLinks(customSelector = ''){
-  console.log('Działa');
   /*[DONE] remove contents of titleList */
   const titleList = document.querySelector(select.listOf.titles);
   titleList.innerHTML = '';
@@ -83,8 +89,8 @@ function generateTitleLinks(customSelector = ''){
     const articleTitle = article.querySelector(select.article.title).innerHTML;
 
     /*[DONE] create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log(linkHTML);
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
     /*[DONE] insert link into titleList */
     titleList.insertAdjacentHTML('beforeend', linkHTML);
   }
@@ -148,8 +154,8 @@ function generateTags(){
     for(let tag of tagsArray){
 
       /* generate HTML of the link */
-      const htmlLink = '<li><a href="#tag-' + tag + '">' + tag + '</a></li> ';
-
+      const htmlLinkData = {id: tag, tag: tag};
+      const htmlLink = templates.tagLink(htmlLinkData);
       /* add generated code to html variable */
       html+=htmlLink;
 
@@ -258,10 +264,10 @@ function generateAuthors(){
 
     /* Generate html for every author */
     /* Add generated code to variable */
-    const authorWrapperHtml = '<a href="#author-'+ articleAuthor + '">by ' + articleAuthor + '</a>';
-
+    const authorLinkData = {id: articleAuthor, author: articleAuthor};
+    const authorLink = templates.authorLink(authorLinkData);
     /* insert HTML to autohr wrapper */
-    authorWrapper.insertAdjacentHTML('beforeend', authorWrapperHtml);
+    authorWrapper.insertAdjacentHTML('beforeend', authorLink);
 
     /* Check articleAuthor is already in allAuthors and his article count*/
     // eslint-disable-next-line no-prototype-builtins

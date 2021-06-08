@@ -118,7 +118,7 @@ function calculateTagClass(count, params){
   const normalizedCount =  count - params.min;
   const normalizedMax = params.max - params.min;
   const percentage = normalizedCount / normalizedMax;
-  const classNumber = Math.floor(percentage * (opts.tagSizes.classPrefix - 1) + 1);
+  const classNumber = Math.floor(percentage * (opts.tagSizes.count - 1) + 1);
   return classNumber;
 }
 
@@ -154,6 +154,7 @@ function generateTags(){
       html+=htmlLink;
 
       /* chceck if this link is NOT already in allTags */
+      // eslint-disable-next-line no-prototype-builtins
       if(!allTags.hasOwnProperty(tag)){
         /* add generated code to allTags object */
         allTags[tag]= 1;
@@ -263,6 +264,7 @@ function generateAuthors(){
     authorWrapper.insertAdjacentHTML('beforeend', authorWrapperHtml);
 
     /* Check articleAuthor is already in allAuthors and his article count*/
+    // eslint-disable-next-line no-prototype-builtins
     if(!allAuthors.hasOwnProperty(articleAuthor)){
       allAuthors[articleAuthor] = 1;
     } else {
